@@ -1,0 +1,690 @@
+<head><title>Live Score</title>    
+<script type="text/javascript" src="jquery-3.6.3.min.js"></script>
+<script>
+function FT(sc,n) {
+    alert(n.substring(n.indexOf(":")+1,n.length) + "FT " + sc);
+}
+
+function live(str,sc) {
+    var a,z,b,ind=str.indexOf("'")+1,s;
+    z=str.indexOf(sc);
+    b=str.indexOf("Half Time");
+    alert(str);
+    
+    for (let i=ind-5;i<ind;i++){
+    
+        if (isNaN(str.charAt(i))) {b=i;}else {a=i;}
+    }
+    if (b>0) { //HT
+        a=b+9;ind=ind+10;
+        alert(str.substring(a,z) + " HT " + sc);
+    }else if (b<0) { //either half
+    alert(str.substring(ind,z) + str.substring(a,ind) + " " + sc);
+}}
+
+function display() {
+    var score,score1,match,match1,match2,skip=35,cnt=0,s;
+    var q = document.getElementById('name').value; //query text
+    
+    if (q !== "") { //form must be filled
+        var blob = document.getElementById('result').textContent; //finished
+        var blob2 = document.getElementById('result2').textContent; //live
+        var blob3 = document.getElementById('result3').textContent; //yester
+    
+    if (blob.indexOf(q)==blob.lastIndexOf(q) && blob.indexOf(q)>0) { //single response
+        match=blob.substring(blob.indexOf(q)-skip,blob.indexOf(q)+skip);
+        s=1;cnt++;
+        score = blob.substring(blob.indexOf(q),blob.indexOf(q)+skip);
+    }
+    if (blob3.indexOf(q)==blob3.lastIndexOf(q) && blob3.indexOf(q)>0) { //single response
+        match=blob3.substring(blob3.indexOf(q)-skip,blob3.indexOf(q)+skip);
+        s=3;cnt++;
+        score = blob3.substring(blob3.indexOf(q),blob3.indexOf(q)+skip);
+    }
+    if (blob2.indexOf(q)==blob2.lastIndexOf(q) && blob2.indexOf(q)>0) { //single response
+        match=blob2.substring(blob2.indexOf(q)-skip,blob2.indexOf(q)+skip);
+        s=2;cnt++;
+        score = blob2.substring(blob2.indexOf(q),blob2.indexOf(q)+skip);
+    }}
+
+    //if (cnt > 1) alert("More than 1");match="";
+    score1=score.indexOf(":");
+
+    if (match.indexOf("Half Time")>0 || match.indexOf("'")>0) {
+        alert("live");
+        live(match,score.substring(score1-1,score1+2));}
+    const myA = match.split(":");
+
+    for (var index = 0; index < 10; index++) { //loop to get match details
+        if ((myA[index].length) > 30 && s==3) {
+            alert("FT");
+            match1 = match.indexOf(myA[index].charAt(2));
+            match2 = match.indexOf(myA[index+1]);
+            FT(score.substring(score1-1,score1+2),match.substring(match1,match2-2));}
+    }}
+
+$(document).ready(function(){
+    var n = new Date();
+    $('#name').focus();
+    if (n.getHours() < 23) $('.result3').load("https://www.flashscore.mobi/?d=-1 #score-data", function(responseTxt, statusTxt, xhr){});
+    $('.result2').load("https://www.flashscore.mobi/?s=2 #score-data", function(responseTxt, statusTxt, xhr){});
+    $('.result').load("https://www.flashscore.mobi/?s=3 #score-data", function(responseTxt, statusTxt, xhr){
+/*        if(statusTxt == "success")
+           alert("Ready for use");
+        if(statusTxt == "error")
+            alert("Error");
+*/      });
+    });
+</script></head>
+<body>
+<form action="" method="get" onSubmit="display();">
+    <input type="text" name="name" id="name" value="Sagamihara">
+</form>    
+<p class="result2" id="result2" hidden><!--live-->
+    WORLD: World Cup Women
+    Half TimeEngland W - Haiti W 1:0
+    AUSTRALIA: NPL NSW
+    75'Marconi Stallions - NWS Spirit 4:1
+    54'Manly Utd - APIA Leichhardt 1:0
+    BANGLADESH: Premier League
+    38'Chittagong Abahani - Bangladesh Police 0:3
+    38'Mohammedan - Rahmatgonj MFS 1:0
+    38'Sheikh Russel - Muktijoddha Sangsad 2:2
+    CHINA: Yi League
+    48'Hunan Billows - Shaoxing Shangyu 1:0
+    INDIA: Calcutta Premier Division
+    Half TimeDiamond Harbour - Mohammedan 0:0
+    Half TimeEastern Railway - Aryan 0:2
+    Half TimeKalighat - United SC 0:0
+    47'Southern Samity - Food Corporation 1:0
+    JAPAN: J1 League
+    38'Vissel Kobe - Kawasaki Frontale 0:2
+    JAPAN: J2 League
+    76'Machida - Chiba 1:3
+    74'Tochigi SC - Shimizu S-Pulse 1:1
+    38'Fujieda MYFC - Kanazawa 1:0
+    38'Montedio Yamagata - V-Varen Nagasaki 2:0
+    38'Oita Trinita - Iwaki 0:0
+    38'Renofa Yamaguchi - Blaublitz 0:0
+    38'Tokushima - Kofu 0:0
+    JAPAN: J3 League
+    76'Gifu - Nagano 0:0
+    77'Sagamihara - Imabari 0:0
+    76'Tegevajaro Miyazaki - Azul Claro Numazu 1:0
+    77'Yamaga - Vanraure 1:0
+    Half TimeRyukyu - YSCC 1:2
+    38'Fukushima Utd - Giravanz Kitakyushu 0:0
+    38'Gainare Tottori - Grulla Morioka 0:0
+    LATVIA: 1. Liga
+    38'Saldus SS/Leevon - Grobina 1:1
+    MYANMAR: National League
+    52'Ispe FC - Ayeyawady 1:0
+    PHILIPPINES: Copa Paulino Alcantara
+    8'University Of The Philippines - Manila Digger 0:0
+    PORTUGAL: League Cup - First stage
+    38'Rio Ave - Academico Viseu 0:0
+    RUSSIA: Premier League
+    38'Ural - CSKA Moscow 1:0
+    RUSSIA: FNL 2 - Division B - Group 2
+    38'Zvezda St. Peterburg - Irkutsk 1:1
+    RUSSIA: FNL 2 - Division B - Group 3
+    38'FK Strogino Moscow - Spartak Tambov 1:1
+    38'Khimki 2 - Kvant 0:0
+    SINGAPORE: Premier League
+    38'Albirex Niigata - Young Lions 3:0
+    38'Tampines - Geylang 0:1
+    SOUTH KOREA: K League 1
+    38'Suwon FC - Gwangju FC 0:0
+    8'Gangwon - Suwon Bluewings 0:0
+    8'Seoul - Incheon 0:0
+    SOUTH KOREA: K3 League
+    38'Mokpo - Siheung Citizen 2:1
+    38'Paju Citizen - Pocheon 1:0
+    VIETNAM: V.League 2
+    81'Binh Thuan - Hoa Binh 0:1
+    75'Phu Tho - Ba Ria Vung Tau 3:0
+    38'BHTS Quang Nam - PVF-CAND 0:0
+    WORLD: Club Friendly
+    89'Dubnica (Svk) - Belusa (Svk) 3:3
+    76'Bristol Rovers (Eng) - Braga (Por) 2:2
+    88'Budafoki (Hun) - Triglav (Slo) 1:0
+    64'Castkovce (Svk) - Myjava (Svk) 1:5
+    82'D. Kubin (Svk) - Lipany (Svk) 3:0
+    87'FK Ceska Lipa (Cze) - Liberec B (Cze) 1:1
+    86'Grodzisk M. (Pol) - Pilica Bialobrzegi (Pol) 5:0
+    83'Gyor (Hun) - Al-Gharafa (Qat) 2:0
+    74'Levante (Esp) - Nottingham (Eng) 1:2
+    77'Lille (Fra) - Cercle Brugge KSV (Bel) 7:2
+    90'MOL Fehervar (Hun) - Pecsi MFC (Hun) 1:1
+    85'Monori (Hun) - Hatvan (Hun) 0:0
+    87'Polkowice (Pol) - Bytom Odrzanski (Pol) 0:2
+    79'Povazska Bystrica (Svk) - SK Hranice (Cze) 1:2
+    89'Siarka Tarnobrzeg (Pol) - Zdroj Busko (Pol) 4:2
+    87'Stolem Gniewino (Pol) - Luzino (Pol) 0:0
+    87'Tatabanya (Hun) - FC Dabas (Hun) 3:2
+    78'Thisted FC (Den) - Skive (Den) 0:1
+    84'Vitoria Setubal (Por) - Atletico CP (Por) 0:1
+    79'Walldorf II (Ger) - Arminia Ludwigshafen (Ger) 2:2
+    46'Eibar (Esp) - R. Union (Esp) 1:0
+    Half TimeLens (Fra) - Sochaux (Fra) 3:0
+    54'SK Rapid Vienna (Am) (Aut) - Slovacko B (Cze) 1:0
+    38'Avia Swidnik (Pol) - Star Starachowice (Pol) 0:0
+    38'BK Frem (Den) - Hellerup (Den) 0:0
+    38'Eskilsminne (Swe) - Falkenberg (Swe) 0:1
+    38'Eupen (Bel) - Marseille (Fra) 1:0
+    38'G.A. Eagles (Ned) - Den Bosch (Ned) 0:0
+    38'Gamba Osaka (Jpn) - Celtic (Sco) 0:0
+    38'Kluczbork (Pol) - Sleza Wroclaw (Pol) 2:0
+    38'Tenerife (Esp) - Mensajero (Esp) 0:0
+    38'Tvaaker (Swe) - Laholms (Swe) 0:0
+    38'United Nordic (Swe) - Nacka Iliria (Swe) 0:0        
+</p>
+<p class="result" id="result" hidden><!--finshed-->
+    WORLD: World Cup Women
+03:00USA W - Vietnam W 3:0
+09:00Zambia W - Japan W 0:5
+AUSTRALIA: NPL ACT
+06:00West Canberra Wanderers - Canberra Olympic 1:3
+07:00O'Connor Knights - Canberra Croatia 2:2
+09:45Monaro Panthers - Tigers FC 1:0
+AUSTRALIA: NPL Northern NSW
+06:30Lambton J. - Charlestown Azzurri 1:0
+07:00Cooks Hill United - Maitland 1:1
+07:00Newcastle Olympic - New Lambton 2:1
+AUSTRALIA: NPL NSW
+08:00Sydney Olympic - Mount Druitt Rangers 3:3
+10:30Sutherland Sharks - WS Wanderers U21 2:0
+AUSTRALIA: NPL Victoria
+07:00Bentleigh Greens - Hume City 0:2
+07:00Moreland City - Dandenong Thunder 0:4
+07:00North Geelong - Heidelberg Utd 0:0
+09:30Port Melbourne Sharks - South Melbourne 0:4
+10:15Altona Magic - Oakleigh Cannons 2:1
+AUSTRALIA: NPL Western Australia
+09:00Armadale - Perth SC 1:4
+09:00Balcatta - Sorrento 2:3
+09:00Cockburn City - Floreat Athena 1:3
+09:00Inglewood Utd - Olympic Kingsway 0:1
+09:00Perth Glory U21 - Stirling Macedonia 2:3
+09:00Perth RedStar - Bayswater 2:0
+BOLIVIA: League Cup
+01:00Universitario de Vinto - Always Ready 2:2
+BRAZIL: Serie B
+00:00CRB - Ponte Preta 1:0
+BRAZIL: Copa Paulista
+00:00Oeste - Juventus-SP 2:2
+CANADA: Canadian Premier League
+04:00Pacific FC - Forge 0:2
+CHILE: Primera Division
+00:00Union La Calera - Magallanes 2:1
+CHILE: Primera B
+02:30Deportes Iquique - Barnechea 2:3
+CHINA: Yi League
+10:00Beijing Technology - Qingdao Red Lions 1:2
+10:00Hainan Star - Chongqing Tonglianglong 1:2
+10:00Nantong Haimen - Hubei Istar 0:0
+COLOMBIA: Primera A - Clausura
+23:00Deportes Tolima - Once Caldas 3:1
+01:15La Equidad - Envigado 1:1
+03:30Dep. Pasto - Petrolera 1:1
+23:10PostponedAguilas - Atl. Nacional -:-
+COLOMBIA: Primera B - Clausura
+22:30PostponedLlaneros - Patriotas -:-
+CZECH REPUBLIC: Division 2
+10:15Chrudim - Lisen 0:0
+10:15Vyskov - Pribram 2:1
+10:30Prostejov - Zizkov 2:1
+CZECH REPUBLIC: MOL Cup
+10:15Vratimov - Frenstat p. R. 2:6
+DOMINICAN REPUBLIC: LDF - Winners stage
+01:00Universidad O&M - Atlantico 1:2
+FIJI: Premier League
+09:30Nadi - Labasa 0:2
+INDONESIA: Liga 1
+10:00Persita - Persija Jakarta 1:0
+JAPAN: J3 League
+08:00Nara Club - Toyama 1:2
+MACAO: Elite League
+15:00PostponedBenfica - Cheng Fung -:-
+MALAWI: Super League
+14:30PostponedBig Bullets - Karonga United -:-
+14:30PostponedChitipa United - Moyale Barracks -:-
+14:30PostponedKamuzu Barracks - Mighty Wanderers -:-
+14:30PostponedMighty Tigers - Blue Eagles -:-
+MEXICO: Liga de Expansion MX - Apertura
+03:05Venados - Tlaxcala 3:1
+MEXICO: Liga MX Women - Apertura
+01:06Queretaro W - Atl. San Luis W 4:0
+03:06Mazatlan FC W - Toluca W 0:3
+05:10Juarez W - U.A.N.L.- Tigres W 0:4
+NORTH & CENTRAL AMERICA: Leagues Cup
+02:00Inter Miami - Cruz Azul 2:1
+02:00Orlando City - Houston Dynamo 2:1pen
+02:30Austin FC - Mazatlan FC 1:3
+03:00FC Dallas - Charlotte 2:3pen
+04:30Vancouver Whitecaps - Club Leon 2:3pen
+PANAMA: LPF - Clausura
+03:00Miguelito - Tauro 3:0
+PARAGUAY: Primera Division - Clausura
+01:00Tacuary - Guarani 0:1
+PARAGUAY: Division Intermedia
+01:15Rubio Nu - Martin Ledesma 3:1
+PERU: Liga 1 - Clausura
+02:45Cienciano - Sport Huancayo 1:0
+PHILIPPINES: Copa Paulino Alcantara
+10:00Loyola - FEU Tamaraws 2:2
+RUSSIA: Russia Cup Women
+10:00SShOR Vakhitovo W - Zvezda 2005 W 1:8
+SCOTLAND: Lowland League
+16:00PostponedCowdenbeath - Stirling University -:-
+16:00PostponedLinlithgow Rose - Albion Rovers -:-
+SLOVAKIA: Slovak Cup
+10:00Spartak Vysoka - Krasno 1:2
+SOUTH AMERICA: Copa Sudamericana - Play Offs
+00:00A. Italiano (Chi) - Nublense (Chi) 0:1
+SOUTH KOREA: K3 League
+10:00Busan Kyotong - Yangju 2:1
+URUGUAY: Primera Division - Torneo Intermedio
+01:00La Luz - Montevideo City 1:3
+USA: USL Championship
+03:00FC Tulsa - Rio Grande 2:1
+USA: MLS Next Pro
+01:00Toronto FC II - Inter Miami II 6:1
+USA: USL League Two - Play Offs
+23:00North Carolina Fusion U23 - Western Mass Pioneers 2:1
+23:00Park City - Oly Town 0:4
+23:00Texas United - Nona 2:1pen
+23:00Thunder Bay Chill - Ann Arbor 5:3aet
+01:00Fort Wayne - Flint City 2:3aet
+01:00Long Island - Ocean City 1:2
+01:30Asheville City - Weston 4:1
+01:30Lionsbridge - Charlotte Eagles 1:0
+02:00Menace - RKC SC 3:1
+02:30Little Rock Rangers - AHFC Royals 2:0
+04:00Redlands FC - Glens SC 1:2
+04:00Ventura - Monterey Bay 2 1:0
+04:30Ballard - New Mexico U23 3:0
+USA: NWSL Challenge Cup Women
+01:00Racing Louisville W - Chicago W 2:0
+04:30Portland Thorns W - San Diego Wave W 4:1
+VENEZUELA: Liga FUTVE
+23:00Metropolitanos - Angostura 1:0
+01:15Zamora - Rayo Zuliano 0:0
+WORLD: Friendly International
+10:30Brera Strumica - Kyrgyzstan 0:0
+WORLD: Club Friendly
+01:00North Carolina (Usa) - Sunderland (Eng) 2:4
+04:00Carmelita (Cos) - Grecia (Cos) 1:1
+04:00Hoffenheim II (Ger) - Crystal Palace U21 (Eng) 2:0
+07:00Doveton (Aus) - Box Hill (Aus) 1:1
+07:00Strathmore (Aus) - Banyule City (Aus) 3:4
+09:30FC Cartagena SAD (Esp) - Elche (Esp) 1:0
+09:30Tunari (Rou) - Gloria Buzau (Rou) 0:0
+10:00Avia Swidnik (Pol) - Star Starachowice (Pol) 2:0
+10:00Bicskei (Hun) - Eger SE (Hun) 1:2
+10:00Bohemians 1905 B (Cze) - Mlada Boleslav B (Cze) 2:7
+10:00CancelledBohumin (Cze) - Cesky Tesin (Cze) -:-
+10:00Bohunice (Cze) - Boskovice (Cze) 5:1
+10:00CSM Slatina (Rou) - FC Arges (Rou) 2:0
+10:00ESMTK Budapest (Hun) - Budaorsi SC (Hun) 0:3
+10:00Girona (Esp) - Andorra (And) 2:2
+10:00Granada CF (Esp) - El Ejido (Esp) 8:0
+10:00Hlucin (Cze) - Trinec (Cze) 1:2
+10:00Kezmarok (Svk) - Spisska Nova Ves (Svk) 1:3
+10:00Obolon (Ukr) - Chaika (Ukr) 1:1
+10:00Papai Perutz (Hun) - Sarvari (Hun) 2:3
+10:00Rosice (Cze) - Blansko (Cze) 4:1
+10:00Slavia TU Kosice (Svk) - Vranov (Svk) 3:1
+10:00Starogard Gdanski (Pol) - Wikielec (Pol) 1:0
+10:00Velke Mezirici (Cze) - Start Brno (Cze) 0:4
+10:15Havirov (Cze) - FK Frydek-Mistek (Cze) 1:4
+10:15Hostoun (Cze) - Teplice B (Cze) 2:0
+10:30FK Humenne (Svk) - Bardejov (Svk) 5:0
+10:30Garbarnia (Pol) - Wislanie Jaskowice (Pol) 0:2
+10:30Nice (Fra) - Montpellier (Fra) 1:0
+10:30Povltavska FA (Cze) - SK Kladno (Cze) 2:2
+10:30Usti nad Labem (Cze) - Dukla Prague B (Cze) 4:1
+10:30Wisloka Debica (Pol) - Czarni Polaniec (Pol) 1:3
+11:00Warta Sieradz (Pol) - Nowe Skalmierzyce (Pol) 1:1
+14:00CancelledAhlen (Ger) - TuS Koblenz (Ger) -:-
+14:00CancelledGent (Bel) - Shakhtar Donetsk (Ukr) -:-
+14:00CancelledRodez (Fra) - Auxerre (Fra) -:-
+16:00CancelledBradford PA (Eng) - Rochdale (Eng) -:-
+16:00CancelledEvesham (Eng) - Coventry (Eng) -:-
+16:00CancelledLongridge Town (Eng) - Stalybridge (Eng) -:-
+16:00CancelledMossley (Eng) - Wigan U23 (Eng) -:-
+16:00CancelledMTK Budapest (Hun) - Podbrezova (Svk) -:-
+16:00CancelledRamsgate (Eng) - Bowers & Pitsea (Eng) -:-
+16:00CancelledWorksop (Eng) - Farsley (Eng) -:-
+17:00CancelledEimsbutteler (Ger) - AB Copenhagen (Den) -:-
+18:00CancelledVoska Sport (Mkd) - Achnas (Cyp) -:-
+18:00CancelledWarth (Aut) - Csornai (Hun) -:-
+19:30CancelledLierse K. (Bel) - Al Rayyan (Qat) -:-
+21:15CancelledVitoria Guimaraes (Por) - Boavista (Por) -:-
+</p>
+<p class="result3" id="result3" hidden><!--yester-->
+    WORLD: World Cup Women
+    04:30Nigeria W - Canada W 0:0
+    07:00Philippines W - Switzerland W 0:2
+    09:30Spain W - Costa Rica W 3:0
+    ARGENTINA: Copa Argentina
+    00:00Barracas Central - Boca Juniors 1:2
+    03:00River Plate - Talleres Cordoba 0:1
+    AUSTRALIA: NPL Queensland
+    10:30Peninsula - Rochedale 0:0
+    12:30Brisbane U21 - Gold Coast Knights 2:3
+    12:30Eastern Suburbs - Brisbane City 0:4
+    AUSTRALIA: NPL Victoria
+    12:00Green Gully - Melbourne Knights 2:0
+    AUSTRIA: OFB Cup
+    18:00Rothis - LASK 0:6
+    18:00SV Spittal - Austria Vienna 0:7
+    19:00ASK Voitsberg - First Vienna 1:2aet
+    19:00Deutschlandsberger - Kapfenberg 1:2pen
+    19:00Schallerbach - Tirol 2:3aet
+    19:00SC Imst - Bregenz 2:0
+    19:00Traiskirchen - Altach 1:2
+    19:30Marchfeld - SC Weiz 2:1pen
+    19:30Parndorf - Drassburg 0:5
+    19:30TWL Elektra - St. Polten 0:3
+    BANGLADESH: Premier League
+    12:00Abahani Limited - Azampur Uttara 1:0
+    12:00Sheikh Jamal - Fortis 0:3
+    BELARUS: Belarusian Cup
+    17:00Molodechno - FC Minsk 0:1aet
+    17:30Ivatsevichi - Shakhtyor Soligorsk 1:6
+    19:00Vitebsk - Energetik-BGU 1:0
+    BELARUS: Vysshaya Liga Women
+    15:00Dyussh-Polesgu W - Zorka-BDU W 0:10
+    16:00Dynamo Brest W - Din. Minsk W 0:4
+    17:00FC Gomel W - Minsk FK W 0:9
+    BHUTAN: Premier League
+    14:00Transport United - Ugyen Academy 7:1
+    BOLIVIA: League Cup
+    00:00Oriente Petrolero - Royal Pari 2:1
+    02:00Tomayapo - Bolivar 1:0
+    21:00Vaca Diez - Independiente Petrolero 0:1
+    BRAZIL: Serie B
+    00:00CRB - Ponte Preta 1:0
+    BRAZIL: Copa Paulista
+    00:00Oeste - Juventus-SP 2:2
+    BRAZIL: Brasileiro U20 - Play Offs
+    00:00Athletico-PR U20 - Flamengo RJ U20 2:1
+    21:30Botafogo U20 - Palmeiras U20 3:3
+    BULGARIA: Parva liga
+    18:00CSKA 1948 Sofia - Pirin Blagoevgrad 3:0
+    20:15CSKA Sofia - Krumovgrad 1:0
+    CHILE: Primera Division
+    00:00Union La Calera - Magallanes 2:1
+    CHINA: Super League
+    13:35Henan Songshan Longmen - Nantong Zhiyun 1:1
+    13:35Shanghai Port - Cangzhou 3:0
+    13:35Tianjin Jinmen Tiger - Shenzhen 3:3
+    COLOMBIA: Primera A - Clausura
+    23:00Deportes Tolima - Once Caldas 3:1
+    COLOMBIA: Primera B - Clausura
+    23:00Orsomarso - Cucuta 1:2
+    02:00Tigres - Fortaleza 2:3
+    CROATIA: HNL
+    20:00D. Zagreb - Hajduk Split 1:2
+    CYPRUS: Super Cup
+    19:30Aris - Omonia 2:0
+    CZECH REPUBLIC: Division 2
+    18:00Jihlava - Opava 2:1
+    DENMARK: Superliga
+    19:00Midtjylland - Hvidovre IF 1:0
+    DENMARK: 1st Division
+    19:00Hillerod - Koge 0:4
+    19:00Vendsyssel - Sonderjyske 1:1
+    ECUADOR: Serie B
+    02:00Cuniburo - America de Quito 2:0
+    ESTONIA: Meistriliiga Women
+    18:00Tabasalu W - Flora W 1:4
+    18:00Viimsi JK W - Parnu JK Vaprus W 2:1
+    EUROPE: Euro U19 Women
+    17:30Belgium U19 W - Germany U19 W 0:2
+    17:30Iceland U19 W - Czech Republic U19 W 2:0
+    20:30Austria U19 W - Netherlands U19 W 1:0
+    20:30France U19 W - Spain U19 W 2:0
+    FINLAND: Ykkonen
+    17:30HIFK - JJK Jyvaskyla 4:2
+    17:30SalPa - KaPa 2:0
+    FINLAND: Kakkonen Group B
+    17:30Honka Akatemia - Poxyt 2:0
+    17:30Jazz Pori - HJS 3:1
+    19:00Atlantis - P-Iirot Rauma 2:1
+    GERMANY: Regionalliga Bayern
+    18:30Wurzburger Kickers - Memmingen 0:0
+    19:00Burghausen - Bayern II 3:3
+    GERMANY: Oberliga Bayern Nord
+    18:30ATSV - 1. SC Feucht 1:1
+    GERMANY: Oberliga Bayern Süd
+    19:00Kirchanschoring - Rain/Lech 2:1
+    ICELAND: Besta deild karla
+    20:00Breidablik - Vestmannaeyjar 3:1
+    ICELAND: Division 1
+    20:30Fjolnir - Aegir 5:1
+    21:15Afturelding - Selfoss 9:0
+    21:15Grindavik - Akranes 0:2
+    21:15Njardvik - Grotta 1:3
+    INDONESIA: Liga 1
+    10:00Borneo - Barito Putera 2:1
+    10:00PSS Sleman - PSIS Semarang 2:2
+    14:00Arema FC - Bali United 1:3
+    14:00Dewa United - Persik Kediri 3:0
+    IRAQ: Super League
+    16:00Al Sinaah - Al Karkh 1:1
+    18:15Zakho - Naft Al-Basra 2:2
+    20:30Al Kahraba - Al Naft 0:1
+    20:30Al Najaf - Al Talaba 1:2
+    20:30Erbil - Al-Qassim 3:0
+    IRELAND: FAI Cup
+    20:45Bohemians - Shelbourne 1:0
+    20:45Drogheda - Sligo Rovers 2:1
+    20:45Kerry - Ringmahon Rangers 2:0
+    20:45Kilbarrack Utd - Finn Harps 0:1
+    20:45UC Dublin - Cobh Ramblers 3:2
+    20:45Wexford - Avondale Utd 3:0
+    JORDAN: Super Cup
+    19:00Al-Faisaly Amman - Al Wehdat 1:2
+    KAZAKHSTAN: First Division
+    11:00FC Astana 2 - Yelimay Semey 0:4
+    14:00Jas Qyran - Aktobe 2 1:0
+    15:00Taraz - Turkistan 4:3
+    LATVIA: Optibet Virsliga
+    17:00Super Nova - Metta/LU 1:3
+    18:00Jelgava - FK Liepaja 3:2
+    LITHUANIA: A Lyga
+    18:00Zalgiris - Suduva 4:0
+    MALAYSIA: Super League
+    14:15Kuching City FC - Kelantan 2:2
+    MOZAMBIQUE: Mocambola
+    14:30Matchejde De Maputo - Black Bulls 2:2
+    MYANMAR: National League
+    11:30Dagon - Rakhine United 1:3
+    NORTHERN IRELAND: Premiership Women
+    20:45PostponedLinfield W - Cliftonville W -:-
+    20:45Mid-Ulster W - Lisburn Ladies W 0:2
+    NORWAY: Division 2 - Group 2
+    19:00Ull/Kisa - Strommen 1:4
+    PARAGUAY: Division Intermedia
+    20:30Pastoreo - Atyra 2:0
+    PARAGUAY: Copa Paraguay
+    23:30Cristobal Colon FC - Nacional Asuncion 0:2
+    PERU: Liga 1 - Clausura
+    20:00Union Comercio - Cesar Vallejo 1:4
+    POLAND: Ekstraklasa
+    18:00Warta Poznan - Pogon Szczecin 0:1
+    20:30Legia - LKS Lodz 3:0
+    POLAND: Division 1
+    18:00Arka Gdynia - Termalica B-B. 2:2
+    20:30Motor Lublin - Zaglebie Sosnowiec 3:2
+    POLAND: Division 2
+    17:00Pogon Siedlce - LKS Lodz II 1:1
+    PORTUGAL: League Cup - First stage
+    21:15Torreense - Mafra 1:0
+    ROMANIA: Liga 1
+    17:30Sepsi Sf. Gheorghe - U Craiova 1948 1:0
+    20:30UTA Arad - CFR Cluj 1:3
+    RUSSIA: Premier League
+    18:00Dynamo Moscow - Krasnodar 1:3
+    RUSSIA: FNL 2 - Division B - Group 3
+    12:00Ryazan - Peresvet 5:2
+    RUSSIA: Youth League
+    09:00FK Rostov U19 - CSKA Moscow U19 1:0
+    09:00Konoplev Academy U19 - FK Orenburg U19 0:2
+    10:00Dynamo Moscow U19 - Ural U19 2:0
+    14:00FSM U19 - Spartak Moscow U19 0:0
+    14:00Rubin Kazan U19 - Baltika U19 1:0
+    14:00UOR 5-Yegoryevsk U19 - Sochi U19 1:3
+    15:00Chertanovo M. U19 - Krylya Sovetov Samara U19 0:1
+    15:00Krasnodar U19 - Fakel Voronezh U19 0:0
+    16:00Akhmat Grozny U19 - Nizhny Novgorod U19 2:0
+    16:00Zenit U19 - Lokomotiv Moscow U19 2:2
+    SCOTLAND: Lowland League
+    20:45Hearts B - Gretna 2008 7:0
+    SINGAPORE: Premier League
+    13:45Balestier Khalsa - Hougang 1:3
+    SOUTH AMERICA: Copa Sudamericana - Play Offs
+    02:00Tigre (Arg) - Libertad Asuncion (Par) 0:1
+    00:00A. Italiano (Chi) - Nublense (Chi) 0:1
+    SOUTH KOREA: K League 1
+    12:30Pohang - Jeonbuk 2:1
+    12:30Ulsan Hyundai - Jeju Utd 2:1
+    SOUTH KOREA: K3 League
+    12:00Daejeon Korail - Ulsan Citizen 1:2
+    SWEDEN: Allsvenskan
+    19:00Brommapojkarna - Hammarby 1:0
+    SWITZERLAND: Challenge League
+    19:30Thun - Stade Nyonnais 1:1
+    19:30Xamax - Schaffhausen 3:0
+    20:15Aarau - Baden 1:0
+    URUGUAY: Primera Division - Torneo Intermedio
+    20:00Fenix - Liverpool M. 0:1
+    USA: USL League Two - Play Offs
+    22:00Chicago City - Cleveland Force 5:1
+    22:00Seacoast Utd Phantoms - Hudson Valley 1:2
+    22:00The Villages - Bantams 2:1
+    23:00North Carolina Fusion U23 - Western Mass Pioneers 2:1
+    23:00Park City - Oly Town 0:4
+    23:00Texas United - Nona 2:1pen
+    23:00Thunder Bay Chill - Ann Arbor 5:3aet
+    VENEZUELA: Liga FUTVE
+    23:00Metropolitanos - Angostura 1:0
+    WALES: League Cup
+    19:30Baglan Dragons - Afan Lido 1:3
+    19:45Chirk AAA FC - Denbigh 0:1
+    20:30Abergavenny Town - Briton Ferry 0:2
+    20:30Cambrian & Clydach - Cardiff 2:3pen
+    20:30Llanelli - Pontardawe 1:0
+    20:30Ruthin - Llandudno 3:2
+    WORLD: Friendly International
+    15:00CancelledKyrgyzstan - Brera Strumica -:-
+    WORLD: Club Friendly
+    02:00Forward Madison (Usa) - Atlante (Mex) 1:2
+    09:00Jiul Petrosani (Rou) - CSM Deva (Rou) 2:1
+    10:00Eldense (Esp) - Sheffield Wed (Eng) 4:0
+    10:00Port Vale (Eng) - Grimsby (Eng) 1:1
+    10:00Rukh Lviv (Ukr) - Metalist 1925 (Ukr) 2:0
+    11:00Minaj (Ukr) - Metalist Kharkiv (Ukr) 2:0
+    11:00MOL Fehervar (Hun) - Gyirmot (Hun) 0:0
+    11:00CancelledOostende (Bel) - Kortrijk (Bel) -:-
+    11:00Trinec (Cze) - Kvitkovice (Cze) 1:1
+    12:00Druzhba Myrivka (Ukr) - Rukh Lviv U19 (Ukr) 6:1
+    12:00Livyi Bereg (Ukr) - Zorya U19 (Ukr) 6:0
+    13:00Nyva Buzova (Ukr) - Dinaz Vyshgorod (Ukr) 3:0
+    13:00Union Rochefortoise (Bel) - Seraing (Bel) 2:2
+    13:30Liefering (Aut) - LASK (Am) (Aut) 0:1
+    14:00Epitsentr (Ukr) - Nyva Vinnytsya (Ukr) 2:1
+    14:00Jong Utrecht (Ned) - Oss (Ned) 0:2
+    15:00Hirnyk-Sport (Ukr) - Kremin 2 (Ukr) 3:1
+    15:00Ujpest (Hun) - Al-Fateh (Sau) 0:1
+    15:25FC Koln (Ger) - Mallorca (Esp) 1:1
+    15:30Presov (Svk) - Podbrezova (Svk) 0:0
+    16:00Besiktas (Tur) - Strasbourg (Fra) 2:1
+    16:00Club Brugge KV U23 (Bel) - Knokke (Bel) 2:0
+    16:00CSM Resita (Rou) - Al Sharjah (Uae) 4:4
+    16:00Kecskemeti TE (Hun) - Ajka (Hun) 5:1
+    16:00Konyaspor (Tur) - Sabail (Aze) 0:2
+    16:00Michalovce (Svk) - L. Mikulas (Svk) 0:3
+    16:00Regensburg (Ger) - Plauen (Ger) 3:0
+    16:00Rukh Lviv (Ukr) - Ahrobiznes Volochysk (Ukr) 3:0
+    16:00VfL Osnabruck (Ger) - MK Dons (Eng) 1:0
+    17:00Adana Demirspor (Tur) - Manisa FK (Tur) 2:3
+    17:00Altyn Asyr (Tkm) - Brera Strumica (Mkd) 0:0
+    17:00Banska Bystrica (Svk) - Petrzalka (Svk) 4:1
+    17:00Bielsko-Biala (Pol) - Vorskla Poltava (Ukr) 3:4
+    17:00Denizlispor (Tur) - Kocaelispor (Tur) 0:0
+    17:00Duisburg (Ger) - Lokomotive Leipzig (Ger) 0:1
+    17:00Haladas (Hun) - VLS Veszprem (Hun) 2:4
+    17:00CancelledLiefering (Aut) - Ried (Am) (Aut) -:-
+    17:00Paris SG (Fra) - Le Havre (Fra) 2:0
+    17:30Al-Sadd (Qat) - Raja Casablanca (Mar) 2:2
+    17:30Belisce (Cro) - Bijelo Brdo (Cro) 0:5
+    17:30Besa 1976 (Mkd) - Bansko (Bul) 3:0
+    17:30Paderborn (Ger) - Bayer Leverkusen (Ger) 2:1
+    17:30Paks (Hun) - SC Ashdod (Isr) 3:2
+    18:00Chemnitzer (Ger) - Altglienicke (Ger) 1:2
+    18:00Dusseldorf (Ger) - Bochum (Ger) 3:1
+    18:00IFK Hassleholm (Swe) - Angelholm (Swe) 0:2
+    18:00Kecskemeti TE (Hun) - Hodmezovasarhely FC (Hun) 4:0
+    18:00MSK Martin (Svk) - Oravske Vesele (Svk) 1:5
+    18:00Orleta Kielce (Pol) - Maccabi Bnei Raina (Isr) 0:3
+    18:00St. Liege (Bel) - Hertha Berlin (Ger) 1:1
+    18:00SV Weinitzen (Aut) - Tillmitsch (Aut) 0:10
+    18:00Villefranche (Fra) - Le Puy-en-Velay (Fra) 2:1
+    18:15Royale Union SG (Bel) - Oostende (Bel) 1:0
+    18:30Austria Vienna (Am) (Aut) - Wolfsberger AC (Am) (Aut) 4:1
+    18:30Laval (Fra) - Cholet (Fra) 0:0
+    18:30Stutt. Kickers (Ger) - Pforzheim (Ger) 3:0
+    18:30Tisselt (Bel) - Boom (Bel) 0:6
+    19:00Arouca (Por) - Trofense (Por) 2:1
+    19:00Chateauroux (Fra) - Orleans (Fra) 0:2
+    19:00Dordrecht (Ned) - Den Bosch (Ned) 2:0
+    19:00CancelledEindhoven FC (Ned) - Beerschot VA (Bel) -:-
+    19:00Jadran Dekani (Slo) - Grobnican (Cro) 0:2
+    19:00CancelledLeithaprodersdorf (Aut) - Katzelsdorf (Aut) -:-
+    19:00SC Kundl (Aut) - Hall (Aut) 0:1
+    19:00SV Union Gnas (Aut) - Gratkorn (Aut) 3:1
+    19:00CancelledTillmitsch (Aut) - Rottenman (Aut) -:-
+    19:00Villarreal U21 (Esp) - Arsenal U21 (Eng) -:-
+    19:00Waldalgesheim (Ger) - Hassia Bingen (Ger) 2:0
+    19:00Wals-Grunau (Aut) - Vocklamarkt (Aut) 0:4
+    19:30Bonner (Ger) - Alemannia Aachen (Ger) 1:2
+    19:30Geestemunde (Ger) - Hagen/Uthlede (Ger) 5:1
+    19:30Ilzer SV (Aut) - Pachern (Aut) 2:0
+    19:30Jeddeloh (Ger) - Delmenhorst (Ger) 2:0
+    19:30Radnicki Nis (Srb) - Mladost (Srb) 0:0
+    19:30Schifflange (Lux) - Francs Borains (Bel) 2:1
+    19:30SV Union Liebenau (Aut) - SV Wildon (Aut) 1:4
+    19:30SV Worgl (Aut) - FC Buch (Aut) -:-
+    19:30Teruel (Esp) - Zaragoza (Esp) 1:2
+    19:30Valencia B (Esp) - UD Ibiza (Esp) 0:1
+    20:00Furstenwalde (Ger) - Petershagen (Aut) 0:2
+    20:00Mannsworth (Aut) - Ritzing (Aut) -:-
+    20:00Olbia (Ita) - Cagliari (Ita) 0:2
+    20:00Wiener Sport-Club (Aut) - Babelsberg (Ger) 2:4
+    20:15Hibernian (Sco) - Groningen (Ned) 2:1
+    20:30CancelledDunston (Eng) - Gateshead (Eng) -:-
+    20:30Fleetwood (Eng) - Blackburn (Eng) 0:0
+    20:30Hebburn Town (Eng) - Horden (Eng) 3:0
+    20:30Isle of Man (Eng) - Southport (Eng) 0:5
+    20:30Leek (Eng) - Stoke City U21 (Eng) 0:0
+    20:30Marine (Eng) - Bootle (Eng) 2:0
+    20:30Oxford Utd (Eng) - Swansea (Wal) 1:0
+    20:30CancelledTiverton (Eng) - Truro (Eng) -:-
+    20:30Walsall (Eng) - Rochdale (Eng) 1:1
+    20:45Banbury (Eng) - Oxford City (Eng) 2:3
+    20:45Bideford (Eng) - Truro (Eng) 1:1
+    20:45Coalville (Eng) - Tamworth (Eng) 2:1
+    20:45Heybridge (Eng) - Canvey (Eng) 1:0
+    20:45Ilkeston (Eng) - Belper Town (Eng) 1:2
+    20:45Ipswich Wanderers (Eng) - Hadleigh (Eng) 1:0
+    20:45Osasuna (Esp) - Real Sociedad (Esp) 3:1
+    21:30Benfica (Por) - Celta Vigo (Esp) 2:0
+    WORLD: Friendly International Women
+    16:30Lebanon W - Palestine W 2:1
+    WORLD: Club Friendly Women
+    14:00PSV W (Ned) - RSC Anderlecht W (Bel) 2:1
+    16:00Ruzomberok W (Svk) - Zilina W (Svk) 10:2
+</p></body>
